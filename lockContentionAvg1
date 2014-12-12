@@ -5,7 +5,10 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 
 public class LockContentionAvg {
 
@@ -14,6 +17,7 @@ public class LockContentionAvg {
 	 */
 	public static HashMap<String, Double> lockContention = new HashMap<String, Double>();
 	public static HashMap<Integer, Double> threadTime = new HashMap<Integer, Double>();
+	public static List<String> headers = new ArrayList<String>();
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		String inputFileName = args[0];
@@ -32,8 +36,15 @@ public class LockContentionAvg {
 			BufferedWriter br = new BufferedWriter(new FileWriter("C:\\Users\\Stigmatized\\Desktop\\myfile.csv"));
 			StringBuilder sb = new StringBuilder();
 			Double value;
+			headers = Collections.list(Collections.enumeration(lockContention.keySet()));
 			for (String key : lockContention.keySet()) {
 			    value=lockContention.get(key);
+			    sb.append(value.toString());
+			    sb.append(",");
+				//System.out.println("Thread: " + ++i +" Avg. waiting time: "+ ((double) waitTimeThreadSorted.get(key)/(double) value));
+			}
+			for (Integer key : threadTime.keySet()) {
+			    value=threadTime.get(key);
 			    sb.append(value.toString());
 			    sb.append(",");
 				//System.out.println("Thread: " + ++i +" Avg. waiting time: "+ ((double) waitTimeThreadSorted.get(key)/(double) value));
